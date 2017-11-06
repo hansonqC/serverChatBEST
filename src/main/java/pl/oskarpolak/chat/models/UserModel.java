@@ -73,7 +73,7 @@ public class UserModel {
     public void sendMessagePacket(String message) {
         MessageModel messageModel = new MessageModel();
         messageModel.setMessageType(MessageModel.MessageType.MESSAGE);
-        messageModel.setContext(message);
+        messageModel.setContext(message+"\n");
         try {
             session.sendMessage(new TextMessage(ChatSocket.GSON.toJson(messageModel)));
         } catch (IOException e) {
@@ -85,6 +85,17 @@ public class UserModel {
         MessageModel messageModel = new MessageModel();
         messageModel.setMessageType(MessageModel.MessageType.OPEN_DIALOG);
         messageModel.setContext(message);
+        try {
+            session.sendMessage(new TextMessage(ChatSocket.GSON.toJson(messageModel)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendCloseWindowPacket() {
+        MessageModel messageModel = new MessageModel();
+        messageModel.setMessageType(MessageModel.MessageType.CLOSE_WINDOW);
+
         try {
             session.sendMessage(new TextMessage(ChatSocket.GSON.toJson(messageModel)));
         } catch (IOException e) {
